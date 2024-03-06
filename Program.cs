@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MyAcquisition.Api.Infrastructure.Context;
+using MyAcquisition.Api.Presentation.Mapping;
 
 internal class Program
 {
@@ -12,6 +13,7 @@ internal class Program
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
     );
     builder.Services.AddControllers();
+    builder.Services.AddAutoMapper(typeof(UsersMapping));
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 

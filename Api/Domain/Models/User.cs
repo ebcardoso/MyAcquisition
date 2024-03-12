@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyAcquisition.Api.Domain.Models;
 
-public class User
+public class User : BaseModel
 {
   public int Id { get; private set; }
 

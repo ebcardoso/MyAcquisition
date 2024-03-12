@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using MyAcquisition.Api.Infrastructure.Context;
 using MyAcquisition.Api.Presentation.Mapping;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 internal class Program
 {
@@ -12,6 +15,26 @@ internal class Program
     builder.Services.AddDbContext<ApiDbContext>(options =>
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
     );
+    builder.Services.AddAuthentication(opt =>
+    {
+      opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+      opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(opt =>
+    {
+      opt.TokenValidationParameters = new TokenValidationParameters
+      {
+        ValidateIssuer = true, //Who generates the token 
+        ValidateAudience = true, //Who consumes the token
+        ValidateLifetime = true, //Deadline
+        ValidateIssuerSigningKey = true, //Validates login
+
+        ValidIssuer = Configuration.GetValue<string>("jwt:issuer"),
+        ValidAudience = Configuration.GetValue<string>("jwt:audience"),
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(Configuration.GetValue<string>("jwt:secretKey"))),
+        ClockSkew = TimeSpan.Zero
+      };
+    });
     builder.Services.AddControllers();
     builder.Services.AddAutoMapper(typeof(UsersMapping));
     builder.Services.AddEndpointsApiExplorer();
@@ -24,6 +47,7 @@ internal class Program
       app.UseSwaggerUI();
     }
     app.UseHttpsRedirection();
+    app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
     app.Run();

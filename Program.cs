@@ -4,6 +4,10 @@ using MyAcquisition.Api.Presentation.Mapping;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MyAcquisition.Api.Domain.RepositoryInterfaces;
+using MyAcquisition.Api.Application.ServiceInterfaces;
+using MyAcquisition.Api.Domain.Repositories;
+using MyAcquisition.Api.Application.Service;
 
 internal class Program
 {
@@ -36,6 +40,8 @@ internal class Program
       };
     });
     builder.Services.AddControllers();
+    builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+    builder.Services.AddScoped<IUsersServices, UsersServices>();
     builder.Services.AddAutoMapper(typeof(UsersMapping));
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();

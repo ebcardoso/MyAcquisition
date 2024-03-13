@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using MyAcquisition.Api.Infrastructure.Context;
-using MyAcquisition.Api.Presentation.Mapping;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MyAcquisition.Api.Domain.RepositoryInterfaces;
-using MyAcquisition.Api.Application.ServiceInterfaces;
 using MyAcquisition.Api.Domain.Repositories;
+using MyAcquisition.Api.Application.ServiceInterfaces;
 using MyAcquisition.Api.Application.Service;
+using MyAcquisition.Api.Presentation.Mapping;
+using MyAcquisition.Api.Infrastructure.Context;
 
 internal class Program
 {
@@ -41,6 +41,7 @@ internal class Program
     });
     builder.Services.AddControllers();
     builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+    builder.Services.AddScoped<IAuthServices, AuthServices>();
     builder.Services.AddScoped<IUsersServices, UsersServices>();
     builder.Services.AddAutoMapper(typeof(UsersMapping));
     builder.Services.AddEndpointsApiExplorer();

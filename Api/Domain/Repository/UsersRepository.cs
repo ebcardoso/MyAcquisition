@@ -19,6 +19,12 @@ public class UsersRepository : IUsersRepository
     return await _context.Users.ToListAsync();
   }
 
+  public async Task<User> GetByID(int id)
+  {
+    var model = await _context.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
+    return model;
+  }
+
   public async Task<User> GetByEmail(string email)
   {
     var model = await _context.Users.Where(x => x.Email.ToLower() == email.ToLower()).FirstOrDefaultAsync();

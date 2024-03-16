@@ -5,5 +5,6 @@ namespace MyAcquisition.Api.Application.ServiceInterfaces;
 public interface IUsersServices
 {
   Task<IEnumerable<UserDTO>> GetAllAsync();
+  Task<UserDTO> GetByID(int id);
   Task<UserDTO> Create(UserDTO model);
 }

@@ -45,6 +45,13 @@ public class UsersServices : IUsersServices
     return _mapper.Map<UserDTO>(modelCreated);
   }
 
+  public async Task<UserDTO> Update(UserDTO modelDTO)
+  {
+    var model = _mapper.Map<User>(modelDTO);
+    var modelChanged = await _usersRepository.Update(model);
+    return _mapper.Map<UserDTO>(modelChanged);
+  }
+
   public async Task<UserDTO> Delete(int id)
   {
     var modelDeleted = await _usersRepository.Delete(id);

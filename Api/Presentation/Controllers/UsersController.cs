@@ -51,6 +51,25 @@ public class UsersController : ControllerBase
     return model;
   }
 
+  [HttpPut]
+  public async Task<ActionResult<UserDTO>> UpdateModel(UserDTO modelDTO)
+  {
+    if (modelDTO.Id == 0)
+    {
+      var response = new ErrorResponse{ Message = "Id is necessary to update a user."};
+      return BadRequest(response);
+    }
+
+    if(!_usersServices.UserExists(modelDTO.Id))
+    {
+      var response = new ErrorResponse{ Message = "User not found."};
+      return NotFound(response);
+    }
+
+    var model = await _usersServices.Update(modelDTO);
+    return model;
+  }
+
   [HttpDelete("{id}")]
   public async Task<ActionResult<UserDTO>> DeleteUser(int id)
   {

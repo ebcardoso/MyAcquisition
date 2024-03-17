@@ -38,6 +38,13 @@ public class UsersRepository : IUsersRepository
     return model;
   }
 
+  public async Task<User> Update(User model)
+  {
+    _context.Entry(model).State = EntityState.Modified;
+    await _context.SaveChangesAsync();
+    return model;
+  }
+
   public async Task<User> Delete(int id)
   {
     var model = await GetByID(id);

@@ -12,6 +12,7 @@ public class ApiDbContext: DbContext
     AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
   }
 
+  public DbSet<Brand> Brands { get; set; }
   public DbSet<User> Users { get; set; }
 
   public override int SaveChanges()

@@ -41,4 +41,21 @@ public class BrandsController : ControllerBase
     var model = await _brandsServices.Create(modelDTO);
     return model;
   }
+
+  [HttpPut]
+  public async Task<ActionResult<BrandDTO>> UpdateBrand(BrandDTO modelDTO)
+  {
+    if (modelDTO.Id == 0)
+    {
+      return BadRequest("Id is necessary to update a brand");
+    }
+
+    if(!_brandsServices.BrandExists(modelDTO.Id))
+    {
+      return NotFound("Brand not found");
+    }
+
+    var model = await _brandsServices.Update(modelDTO);
+    return model;
+  }
 }

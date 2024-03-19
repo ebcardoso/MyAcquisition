@@ -31,4 +31,16 @@ public class BrandsRepository : IBrandsRepository
     await _context.SaveChangesAsync();
     return model;
   }
+
+  public async Task<Brand> Update(Brand model)
+  {
+    _context.Entry(model).State = EntityState.Modified;
+    await _context.SaveChangesAsync();
+    return model;
+  }
+
+  public bool BrandExists(int id)
+  {
+    return _context.Brands.Any(e => e.Id == id);
+  }
 }

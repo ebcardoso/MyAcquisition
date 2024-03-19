@@ -40,9 +40,12 @@ internal class Program
       };
     });
     builder.Services.AddControllers();
+    builder.Services.AddScoped<IBrandsRepository, BrandsRepository>();
     builder.Services.AddScoped<IUsersRepository, UsersRepository>();
     builder.Services.AddScoped<IAuthServices, AuthServices>();
+    builder.Services.AddScoped<IBrandsServices, BrandsServices>();
     builder.Services.AddScoped<IUsersServices, UsersServices>();
+    builder.Services.AddAutoMapper(typeof(BrandsMapping));
     builder.Services.AddAutoMapper(typeof(UsersMapping));
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
@@ -60,3 +63,8 @@ internal class Program
     app.Run();
   }
 }
+
+/*
+dotnet ef migrations add <name-migration>
+dotnet ef database update
+*/

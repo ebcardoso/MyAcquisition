@@ -18,4 +18,10 @@ public class BrandsRepository : IBrandsRepository
   {
     return await _context.Brands.ToListAsync();
   }
+
+  public async Task<Brand> GetByID(int id)
+  {
+    var model = await _context.Brands.Where(x => x.Id == id).FirstOrDefaultAsync();
+    return model;
+  }
 }

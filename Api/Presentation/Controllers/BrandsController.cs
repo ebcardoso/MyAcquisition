@@ -23,4 +23,15 @@ public class BrandsController : ControllerBase
     var modelsDTO = await _brandsServices.GetAllAsync();
     return modelsDTO;
   }
+
+  [HttpGet("{id}")]
+  public async Task<ActionResult<BrandDTO>> GetBrand(int id)
+  {
+    var modelDTO = await _brandsServices.GetByID(id);
+    if (modelDTO == null)
+    { 
+      return NotFound("Brand not found");
+    }
+    return modelDTO;
+  }
 }

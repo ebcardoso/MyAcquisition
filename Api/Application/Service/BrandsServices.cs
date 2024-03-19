@@ -22,4 +22,10 @@ public class BrandsServices : IBrandsServices
     var models = await _brandsRepository.GetAllAsync();
     return _mapper.Map<IEnumerable<BrandDTO>>(models);
   }
+
+  public async Task<BrandDTO> GetByID(int id)
+  {
+    var model = await _brandsRepository.GetByID(id);
+    return _mapper.Map<BrandDTO>(model);
+  }
 }

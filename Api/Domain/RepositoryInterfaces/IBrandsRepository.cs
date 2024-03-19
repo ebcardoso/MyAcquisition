@@ -5,4 +5,5 @@ namespace MyAcquisition.Api.Domain.RepositoryInterfaces;
 public interface IBrandsRepository
 {
   Task<IEnumerable<Brand>> GetAllAsync();
+  Task<Brand> GetByID(int id);
 }

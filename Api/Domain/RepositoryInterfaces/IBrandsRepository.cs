@@ -8,5 +8,6 @@ public interface IBrandsRepository
   Task<Brand> GetByID(int id);
   Task<Brand> Create(Brand model);
   Task<Brand> Update(Brand model);
+  Task<Brand> Delete(int id);
   bool BrandExists(int id);
 }

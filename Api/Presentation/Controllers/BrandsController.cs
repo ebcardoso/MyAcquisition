@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Application.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
+using MyAcquisition.Api.Presentation.Responses.Auth;
 
 namespace MyAcquisition.Api.Presentation.Controllers;
 
@@ -30,7 +31,8 @@ public class BrandsController : ControllerBase
     var modelDTO = await _brandsServices.GetByID(id);
     if (modelDTO == null)
     { 
-      return NotFound("Brand not found");
+      var response = new ErrorResponse{ Message = "Brand not found." };
+      return NotFound(response);
     }
     return modelDTO;
   }
@@ -47,15 +49,30 @@ public class BrandsController : ControllerBase
   {
     if (modelDTO.Id == 0)
     {
-      return BadRequest("Id is necessary to update a brand");
+      var response = new ErrorResponse{ Message ="Id is necessary to update a brand." };
+      return BadRequest(response);
     }
 
     if(!_brandsServices.BrandExists(modelDTO.Id))
     {
-      return NotFound("Brand not found");
+      var response = new ErrorResponse{ Message = "Brand not found." };
+      return NotFound(response);
     }
 
     var model = await _brandsServices.Update(modelDTO);
+    return model;
+  }
+
+  [HttpDelete("{id}")]
+  public async Task<ActionResult<BrandDTO>> DeleteBrand(int id)
+  {
+    if(!_brandsServices.BrandExists(id))
+    {
+      var response = new ErrorResponse{ Message = "Brand not found." };
+      return NotFound(response);
+    }
+
+    var model = await _brandsServices.Delete(id);
     return model;
   }
 }

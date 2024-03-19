@@ -39,6 +39,18 @@ public class BrandsRepository : IBrandsRepository
     return model;
   }
 
+  public async Task<Brand> Delete(int id)
+  {
+    var model = await GetByID(id);
+    if (model != null)
+    {
+      _context.Brands.Remove(model);
+      await _context.SaveChangesAsync();
+      return model;
+    }
+    return null;
+  }
+
   public bool BrandExists(int id)
   {
     return _context.Brands.Any(e => e.Id == id);

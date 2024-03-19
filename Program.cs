@@ -63,8 +63,3 @@ internal class Program
     app.Run();
   }
 }
-
-/*
-dotnet ef migrations add <name-migration>
-dotnet ef database update
-*/

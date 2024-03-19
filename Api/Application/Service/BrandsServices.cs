@@ -43,6 +43,12 @@ public class BrandsServices : IBrandsServices
     return _mapper.Map<BrandDTO>(modelChanged);
   }
 
+  public async Task<BrandDTO> Delete(int id)
+  {
+    var modelDeleted = await _brandsRepository.Delete(id);
+    return _mapper.Map<BrandDTO>(modelDeleted);
+  }
+
   public bool BrandExists(int id)
   {
     return _brandsRepository.BrandExists(id);

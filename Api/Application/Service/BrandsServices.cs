@@ -28,4 +28,11 @@ public class BrandsServices : IBrandsServices
     var model = await _brandsRepository.GetByID(id);
     return _mapper.Map<BrandDTO>(model);
   }
+
+  public async Task<BrandDTO> Create(BrandDTO modelDTO)
+  {
+    var model = _mapper.Map<Brand>(modelDTO);
+    var modelCreated = await _brandsRepository.Create(model);
+    return _mapper.Map<BrandDTO>(modelCreated);
+  }
 }

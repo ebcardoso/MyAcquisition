@@ -6,4 +6,5 @@ public interface IBrandsRepository
 {
   Task<IEnumerable<Brand>> GetAllAsync();
   Task<Brand> GetByID(int id);
+  Task<Brand> Create(Brand model);
 }

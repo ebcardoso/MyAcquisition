@@ -24,4 +24,11 @@ public class BrandsRepository : IBrandsRepository
     var model = await _context.Brands.Where(x => x.Id == id).FirstOrDefaultAsync();
     return model;
   }
+
+  public async Task<Brand> Create(Brand model)
+  {
+    _context.Brands.Add(model);
+    await _context.SaveChangesAsync();
+    return model;
+  }
 }

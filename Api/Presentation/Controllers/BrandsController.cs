@@ -34,4 +34,11 @@ public class BrandsController : ControllerBase
     }
     return modelDTO;
   }
+
+  [HttpPost]
+  public async Task<ActionResult<BrandDTO>> CreateBrand(BrandDTO modelDTO)
+  {
+    var model = await _brandsServices.Create(modelDTO);
+    return model;
+  }
 }

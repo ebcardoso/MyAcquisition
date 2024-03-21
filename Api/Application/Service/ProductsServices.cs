@@ -23,6 +23,12 @@ public class ProductsServices : IProductsServices
     return _mapper.Map<IEnumerable<ProductDTO>>(models);
   }
 
+  public async Task<ProductDTO> GetByID(int id)
+  {
+    var model = await _productsRepository.GetByID(id);
+    return _mapper.Map<ProductDTO>(model);
+  }
+
   public async Task<ProductDTO> Create(ProductPostDTO modelDTO)
   {
     var model = _mapper.Map<Product>(modelDTO);

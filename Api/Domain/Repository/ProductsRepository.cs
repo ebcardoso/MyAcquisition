@@ -19,6 +19,14 @@ public class ProductsRepository : IProductsRepository
     return await _context.Products.Include(x => x.Brand).ToListAsync();
   }
 
+  public async Task<Product> GetByID(int id)
+  {
+    var model = await _context.Products.Where(x => x.Id == id)
+                                       .Include(x => x.Brand)
+                                       .FirstOrDefaultAsync();
+    return model;
+  }
+
   public async Task<Product> Create(Product model)
   {
     _context.Products.Add(model);

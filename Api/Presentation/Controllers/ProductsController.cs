@@ -26,6 +26,18 @@ public class ProductsController : ControllerBase
     return modelsDTO;
   }
 
+  [HttpGet("{id}")]
+  public async Task<ActionResult<ProductDTO>> GetProduct(int id)
+  {
+    var modelDTO = await _productsServices.GetByID(id);
+    if (modelDTO == null)
+    {
+      var response = new ErrorResponse{ Message = "Product not found." };
+      return NotFound(response);
+    }
+    return modelDTO;
+  }
+
   [HttpPost]
   public async Task<ActionResult<ProductDTO>> CreateProduct(ProductPostDTO modelDTO)
   {

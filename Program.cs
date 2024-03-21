@@ -40,13 +40,23 @@ internal class Program
       };
     });
     builder.Services.AddControllers();
+
+    // Repositories
     builder.Services.AddScoped<IBrandsRepository, BrandsRepository>();
+    builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
     builder.Services.AddScoped<IUsersRepository, UsersRepository>();
     builder.Services.AddScoped<IAuthServices, AuthServices>();
+
+    // Services
     builder.Services.AddScoped<IBrandsServices, BrandsServices>();
+    builder.Services.AddScoped<IProductsServices, ProductsServices>();
     builder.Services.AddScoped<IUsersServices, UsersServices>();
+
+    // Mappings
     builder.Services.AddAutoMapper(typeof(BrandsMapping));
+    builder.Services.AddAutoMapper(typeof(ProductsMapping));
     builder.Services.AddAutoMapper(typeof(UsersMapping));
+
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 

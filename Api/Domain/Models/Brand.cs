@@ -5,7 +5,7 @@ using MyAcquisition.Api.Infrastructure.Exceptions;
 
 namespace MyAcquisition.Api.Domain.Models;
 
-[Table("brands")]
+[Table("Brand")]
 public class Brand : BaseModel
 {
   [Column("id")]

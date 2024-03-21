@@ -17,6 +17,12 @@ public class ProductsServices : IProductsServices
     _mapper = mapper;
   }
 
+  public async Task<IEnumerable<ProductDTO>> GetAllAsync()
+  {
+    var models = await _productsRepository.GetAllAsync();
+    return _mapper.Map<IEnumerable<ProductDTO>>(models);
+  }
+
   public async Task<ProductDTO> Create(ProductPostDTO modelDTO)
   {
     var model = _mapper.Map<Product>(modelDTO);

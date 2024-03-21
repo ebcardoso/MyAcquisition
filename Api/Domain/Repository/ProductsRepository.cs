@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MyAcquisition.Api.Domain.RepositoryInterfaces;
 using MyAcquisition.Api.Domain.Models;
 using MyAcquisition.Api.Infrastructure.Context;
@@ -11,6 +12,11 @@ public class ProductsRepository : IProductsRepository
   public ProductsRepository(ApiDbContext context)
   {
     _context = context;
+  }
+
+  public async Task<IEnumerable<Product>> GetAllAsync()
+  {
+    return await _context.Products.Include(x => x.Brand).ToListAsync();
   }
 
   public async Task<Product> Create(Product model)

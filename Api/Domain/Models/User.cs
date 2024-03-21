@@ -4,6 +4,7 @@ using MyAcquisition.Api.Infrastructure.Exceptions;
 
 namespace MyAcquisition.Api.Domain.Models;
 
+[Table("User")]
 public class User : BaseModel
 {
   public int Id { get; private set; }

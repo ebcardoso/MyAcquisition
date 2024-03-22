@@ -35,4 +35,15 @@ public class ProductsServices : IProductsServices
     var modelCreated = await _productsRepository.Create(model);
     return _mapper.Map<ProductDTO>(modelCreated);
   }
+
+  public async Task<ProductDTO> Delete(int id)
+  {
+    var modelDeleted = await _productsRepository.Delete(id);
+    return _mapper.Map<ProductDTO>(modelDeleted);
+  }
+
+  public bool ProductExists(int id)
+  {
+    return _productsRepository.ProductExists(id);
+  }
 }

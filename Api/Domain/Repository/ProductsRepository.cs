@@ -33,4 +33,21 @@ public class ProductsRepository : IProductsRepository
     await _context.SaveChangesAsync();
     return model;
   }
+
+  public async Task<Product> Delete(int id)
+  {
+    var model = await GetByID(id);
+    if (model != null)
+    {
+      _context.Products.Remove(model);
+      await _context.SaveChangesAsync();
+      return model;
+    }
+    return null;
+  }
+
+  public bool ProductExists(int id)
+  {
+    return _context.Products.Any(e => e.Id == id);
+  }
 }

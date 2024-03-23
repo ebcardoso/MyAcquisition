@@ -45,6 +45,29 @@ public class ProductsController : ControllerBase
     return model;
   }
 
+  [HttpPut]
+  public async Task<ActionResult<ProductDTO>> UpdateProduct(ProductPutDTO modelPutDTO)
+  {
+    var modelDTO = await _productsServices.GetByID(modelPutDTO.Id);
+    if(modelDTO == null)
+    {
+      var response = new ErrorResponse{ Message = "Product not found." };
+      return NotFound(response);
+    }
+
+    modelDTO.Name = modelPutDTO.Name;
+    modelDTO.Unit = modelPutDTO.Unit;
+    modelDTO.Quantity = modelPutDTO.Quantity;
+
+    var model = await _productsServices.Update(modelDTO);
+    if (model == null)
+    {
+      var response = new ErrorResponse{ Message = "Error to update Product." };
+      return BadRequest(response);
+    }
+    return model;
+  }
+
   [HttpDelete("{id}")]
   public async Task<ActionResult<ProductDTO>> DeleteProduct(int id)
   {

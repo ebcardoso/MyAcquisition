@@ -24,12 +24,20 @@ public class ProductsRepository : IProductsRepository
     var model = await _context.Products.Where(x => x.Id == id)
                                        .Include(x => x.Brand)
                                        .FirstOrDefaultAsync();
+    _context.Entry(model).State = EntityState.Detached;
     return model;
   }
 
   public async Task<Product> Create(Product model)
   {
     _context.Products.Add(model);
+    await _context.SaveChangesAsync();
+    return model;
+  }
+
+  public async Task<Product> Update(Product model)
+  {
+    _context.Entry(model).State = EntityState.Modified;
     await _context.SaveChangesAsync();
     return model;
   }

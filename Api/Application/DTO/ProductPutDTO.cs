@@ -3,11 +3,11 @@ using MyAcquisition.Api.Domain.Enums;
 
 namespace MyAcquisition.Api.Application.DTO;
 
-public class ProductPostDTO
+public class ProductPutDTO
 {
-  [Required(ErrorMessage = "BrandId is required")]
-  [Range(1, int.MaxValue, ErrorMessage = "The value of BrandId is invalid")]
-  public int BrandId { get; set; }
+  [Required(ErrorMessage = "Id is required")]
+  [Range(1, int.MaxValue, ErrorMessage = "The value of Id is invalid")]
+  public int Id { get; set; }
 
   [Required(ErrorMessage = "Name is required")]
   [MinLength(1, ErrorMessage = "This field should have at least 1 characters")]

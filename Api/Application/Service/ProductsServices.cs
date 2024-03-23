@@ -36,6 +36,13 @@ public class ProductsServices : IProductsServices
     return _mapper.Map<ProductDTO>(modelCreated);
   }
 
+  public async Task<ProductDTO> Update(ProductDTO modelDTO)
+  {
+    var model = _mapper.Map<Product>(modelDTO);
+    var modelChanged = await _productsRepository.Update(model);
+    return _mapper.Map<ProductDTO>(modelChanged);
+  }
+
   public async Task<ProductDTO> Delete(int id)
   {
     var modelDeleted = await _productsRepository.Delete(id);

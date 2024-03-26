@@ -3,6 +3,7 @@ using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Application.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using MyAcquisition.Api.Presentation.Responses.Auth;
+using MyAcquisition.Api.Presentation.Extensions;
 
 namespace MyAcquisition.Api.Presentation.Controllers;
 
@@ -19,9 +20,13 @@ public class BrandsController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<IEnumerable<BrandDTO>> GetBrands()
+  public async Task<IEnumerable<BrandDTO>> GetBrands([FromQuery]PaginationParams paginationParams)
   {
-    var modelsDTO = await _brandsServices.GetAllAsync();
+    var modelsDTO = await _brandsServices.GetAllAsync(paginationParams.PageNumber, paginationParams.PageSize);
+
+    Response.AddPaginationHeader(new PaginationHeader(modelsDTO.CurrentPage,
+      modelsDTO.PageSize, modelsDTO.TotalCount, modelsDTO.TotalPages));
+
     return modelsDTO;
   }
 

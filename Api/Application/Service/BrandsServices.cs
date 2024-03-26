@@ -3,6 +3,7 @@ using MyAcquisition.Api.Application.ServiceInterfaces;
 using MyAcquisition.Api.Domain.RepositoryInterfaces;
 using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Domain.Models;
+using MyAcquisition.Api.Domain.Pagination;
 
 namespace MyAcquisition.Api.Application.Service;
 
@@ -17,10 +18,11 @@ public class BrandsServices : IBrandsServices
     _mapper = mapper;
   }
 
-  public async Task<IEnumerable<BrandDTO>> GetAllAsync()
+  public async Task<PagedList<BrandDTO>> GetAllAsync(int pageNumber, int pageSize)
   {
-    var models = await _brandsRepository.GetAllAsync();
-    return _mapper.Map<IEnumerable<BrandDTO>>(models);
+    var models = await _brandsRepository.GetAllAsync(pageNumber, pageSize);
+    var modelsDTO =  _mapper.Map<IEnumerable<BrandDTO>>(models);
+    return new PagedList<BrandDTO>(modelsDTO, pageNumber, pageSize, models.TotalCount);
   }
 
   public async Task<BrandDTO> GetByID(int id)

@@ -4,7 +4,7 @@ using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Presentation.Responses.Auth;
 using MyAcquisition.Api.Presentation.Requests;
 
-namespace ApiRestPostgre.Api.Presentation.Controllers;
+namespace MyAcquisition.Api.Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -1,7 +1,7 @@
 using System.Text.Json;
 using MyAcquisition.Api.Presentation.Controllers;
 
-namespace ApiRestPostgre.Api.Presentation.Extensions;
+namespace MyAcquisition.Api.Presentation.Extensions;
 
 public static class HttpExtensions
 {

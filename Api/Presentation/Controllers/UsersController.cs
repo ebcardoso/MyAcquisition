@@ -1,12 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Application.ServiceInterfaces;
+using MyAcquisition.Api.Presentation.Extensions;
 using MyAcquisition.Api.Presentation.Responses.Auth;
 
 namespace MyAcquisition.Api.Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class UsersController : ControllerBase
 {
   private readonly IUsersServices _usersServices;
@@ -19,9 +22,13 @@ public class UsersController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<IEnumerable<UserDTO>> GetUsers()
+  public async Task<IEnumerable<UserDTO>> GetUsers([FromQuery]PaginationParams paginationParams)
   {
-    var modelsDTO = await _usersServices.GetAllAsync();
+    var modelsDTO = await _usersServices.GetAllAsync(paginationParams.PageNumber, paginationParams.PageSize);
+
+    Response.AddPaginationHeader(new PaginationHeader(modelsDTO.CurrentPage,
+      modelsDTO.PageSize, modelsDTO.TotalCount, modelsDTO.TotalPages));
+
     return modelsDTO;
   }
 

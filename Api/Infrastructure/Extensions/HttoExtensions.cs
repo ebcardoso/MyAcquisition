@@ -1,7 +1,7 @@
 using System.Text.Json;
-using MyAcquisition.Api.Presentation.Controllers;
+using MyAcquisition.Api.Presentation.Models;
 
-namespace MyAcquisition.Api.Presentation.Extensions;
+namespace MyAcquisition.Api.Infrastructure.Extensions;
 
 public static class HttpExtensions
 {

@@ -3,6 +3,7 @@ using MyAcquisition.Api.Application.ServiceInterfaces;
 using MyAcquisition.Api.Domain.RepositoryInterfaces;
 using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Domain.Models;
+using MyAcquisition.Api.Domain.Pagination;
 
 namespace MyAcquisition.Api.Application.Service;
 
@@ -17,10 +18,11 @@ public class ProductsServices : IProductsServices
     _mapper = mapper;
   }
 
-  public async Task<IEnumerable<ProductDTO>> GetAllAsync()
+  public async Task<PagedList<ProductDTO>> GetAllAsync(int pageNumber, int pageSize)
   {
-    var models = await _productsRepository.GetAllAsync();
-    return _mapper.Map<IEnumerable<ProductDTO>>(models);
+    var models = await _productsRepository.GetAllAsync(pageNumber, pageSize);
+    var modelsDTO =  _mapper.Map<IEnumerable<ProductDTO>>(models);
+    return new PagedList<ProductDTO>(modelsDTO, pageNumber, pageSize, models.TotalCount);
   }
 
   public async Task<ProductDTO> GetByID(int id)

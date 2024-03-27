@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using MyAcquisition.Api.Domain.RepositoryInterfaces;
 using MyAcquisition.Api.Domain.Models;
 using MyAcquisition.Api.Infrastructure.Context;
+using MyAcquisition.Api.Infrastructure.Helpers;
+using MyAcquisition.Api.Domain.Pagination;
 
 namespace MyAcquisition.Api.Domain.Repositories;
 
@@ -14,9 +16,10 @@ public class ProductsRepository : IProductsRepository
     _context = context;
   }
 
-  public async Task<IEnumerable<Product>> GetAllAsync()
+  public async Task<PagedList<Product>> GetAllAsync(int pageNumber, int pageSize)
   {
-    return await _context.Products.Include(x => x.Brand).ToListAsync();
+    var query = _context.Products.Include(x => x.Brand).AsQueryable();
+    return await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
   }
 
   public async Task<Product> GetByID(int id)

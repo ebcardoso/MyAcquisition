@@ -3,7 +3,8 @@ using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Application.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using MyAcquisition.Api.Presentation.Responses.Auth;
-using MyAcquisition.Api.Presentation.Extensions;
+using MyAcquisition.Api.Presentation.Models;
+using MyAcquisition.Api.Infrastructure.Extensions;
 
 namespace MyAcquisition.Api.Presentation.Controllers;
 

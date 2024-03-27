@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Application.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
+using MyAcquisition.Api.Presentation.Models;
 using MyAcquisition.Api.Presentation.Responses.Auth;
 using MyAcquisition.Api.Infrastructure.Extensions;
 
@@ -20,9 +21,13 @@ public class ProductsController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<IEnumerable<ProductDTO>> GetProducts()
+  public async Task<IEnumerable<ProductDTO>> GetProducts([FromQuery]PaginationParams paginationParams)
   {
-    var modelsDTO = await _productsServices.GetAllAsync();
+    var modelsDTO = await _productsServices.GetAllAsync(paginationParams.PageNumber, paginationParams.PageSize);
+
+    Response.AddPaginationHeader(new PaginationHeader(modelsDTO.CurrentPage,
+      modelsDTO.PageSize, modelsDTO.TotalCount, modelsDTO.TotalPages));
+
     return modelsDTO;
   }
 

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace MyAcquisition.Api.Presentation.Controllers;
+namespace MyAcquisition.Api.Presentation.Models;
 
 public class PaginationParams
 {

@@ -24,7 +24,7 @@ public class CompanyDTO
   
   [Required(ErrorMessage = "Email is required", AllowEmptyStrings=false)]
   [StringLength(70, ErrorMessage = "Email cannot be longer than 70 characters")]
-  [RegularExpression(@"b[A-Z0-9._%-]+@[A-Z0-9.-]+.[A-Z]{2,4}b", ErrorMessage = "Email format is invalid")]
+  [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Email format is invalid")]
   public string Email { get; set; }
   
   [Required(ErrorMessage = "ZipCode is required", AllowEmptyStrings=false)]
@@ -43,7 +43,7 @@ public class CompanyDTO
   [StringLength(50, ErrorMessage = "Neighborhood cannot be longer than 50 characters")]
   public string Neighborhood { get; set; }
 
-  [Required(ErrorMessage = "Complement is required")]
+  [Required(ErrorMessage = "Complement is required", AllowEmptyStrings=true)]
   [StringLength(100, ErrorMessage = "Complement cannot be longer than 100 characters")]
   public string Complement { get; set; }
   

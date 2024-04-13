@@ -124,7 +124,7 @@ public class Company
     TradeName = tradeName;
     Document = document;
     Phone = phone;
-    Email = email;
+    Email = email.ToLower();
     ZipCode = zipCode;
     StreetName = streetName;
     StreetNumber = streetNumber;

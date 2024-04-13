@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Application.ServiceInterfaces;
+using MyAcquisition.Api.Infrastructure.Extensions;
+using MyAcquisition.Api.Presentation.Models;
 
 namespace MyAcquisition.Api.Presentation.Controllers;
 
@@ -16,6 +18,17 @@ public class CompaniesController : ControllerBase
   public CompaniesController(ICompaniesServices companiessServices)
   {
     _companiesServices = companiessServices;
+  }
+
+  [HttpGet]
+  public async Task<IEnumerable<CompanyDTO>> GetCompanies([FromQuery]PaginationParams paginationParams)
+  {
+    var modelsDTO = await _companiesServices.GetAllAsync(paginationParams.PageNumber, paginationParams.PageSize);
+
+    Response.AddPaginationHeader(new PaginationHeader(modelsDTO.CurrentPage,
+      modelsDTO.PageSize, modelsDTO.TotalCount, modelsDTO.TotalPages));
+
+    return modelsDTO;
   }
 
   [HttpPost]

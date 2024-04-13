@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MyAcquisition.Api.Domain.RepositoryInterfaces;
 using MyAcquisition.Api.Domain.Repositories;
+using MyAcquisition.Api.Application.Mapping;
 using MyAcquisition.Api.Application.ServiceInterfaces;
 using MyAcquisition.Api.Application.Service;
 using MyAcquisition.Api.Presentation.Mapping;
@@ -43,16 +44,19 @@ internal class Program
 
     // Repositories
     builder.Services.AddScoped<IBrandsRepository, BrandsRepository>();
+    builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
     builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
     builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
     // Services
     builder.Services.AddScoped<IAuthServices, AuthServices>();
     builder.Services.AddScoped<IBrandsServices, BrandsServices>();
+    builder.Services.AddScoped<ICompaniesServices, CompaniesServices>();
     builder.Services.AddScoped<IProductsServices, ProductsServices>();
     builder.Services.AddScoped<IUsersServices, UsersServices>();
 
     // Mappings
+    builder.Services.AddAutoMapper(typeof(DomainToDTOMapping));
     builder.Services.AddAutoMapper(typeof(BrandsMapping));
     builder.Services.AddAutoMapper(typeof(ProductsMapping));
     builder.Services.AddAutoMapper(typeof(UsersMapping));

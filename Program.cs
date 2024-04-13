@@ -2,12 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using MyAcquisition.Api.Domain.RepositoryInterfaces;
-using MyAcquisition.Api.Domain.Repositories;
 using MyAcquisition.Api.Application.Mapping;
 using MyAcquisition.Api.Application.ServiceInterfaces;
 using MyAcquisition.Api.Application.Service;
-using MyAcquisition.Api.Presentation.Mapping;
+using MyAcquisition.Api.Domain.RepositoryInterfaces;
+using MyAcquisition.Api.Domain.Repositories;
 using MyAcquisition.Api.Infrastructure.Context;
 
 internal class Program
@@ -57,9 +56,6 @@ internal class Program
 
     // Mappings
     builder.Services.AddAutoMapper(typeof(DomainToDTOMapping));
-    builder.Services.AddAutoMapper(typeof(BrandsMapping));
-    builder.Services.AddAutoMapper(typeof(ProductsMapping));
-    builder.Services.AddAutoMapper(typeof(UsersMapping));
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();

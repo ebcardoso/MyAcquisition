@@ -6,5 +6,6 @@ namespace MyAcquisition.Api.Domain.RepositoryInterfaces;
 public interface ICompaniesRepository
 {
   Task<PagedList<Company>> GetAllAsync(int pageNumber, int pageSize);
+  Task<Company> GetByID(int id);
   Task<Company> Create(Company model);
 }

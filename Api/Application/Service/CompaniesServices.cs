@@ -25,6 +25,12 @@ public class CompaniesServices : ICompaniesServices
     return new PagedList<CompanyDTO>(modelsDTO, pageNumber, pageSize, models.TotalCount);
   }
 
+  public async Task<CompanyDTO> GetByID(int id)
+  {
+    var model = await _companiesRepository.GetByID(id);
+    return _mapper.Map<CompanyDTO>(model);
+  }
+
   public async Task<CompanyDTO> Create(CompanyDTO modelDTO)
   {
     var model = _mapper.Map<Company>(modelDTO);

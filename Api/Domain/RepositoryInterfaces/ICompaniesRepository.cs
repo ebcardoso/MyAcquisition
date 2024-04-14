@@ -8,4 +8,6 @@ public interface ICompaniesRepository
   Task<PagedList<Company>> GetAllAsync(int pageNumber, int pageSize);
   Task<Company> GetByID(int id);
   Task<Company> Create(Company model);
+  Task<Company> Delete(int id);
+  bool CompanyExists(int id);
 }

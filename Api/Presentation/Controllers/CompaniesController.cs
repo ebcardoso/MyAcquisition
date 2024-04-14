@@ -50,4 +50,17 @@ public class CompaniesController : ControllerBase
     var model = await _companiesServices.Create(modelDTO);
     return model;
   }
+
+  [HttpDelete("{id}")]
+  public async Task<ActionResult<CompanyDTO>> DeleteCompany(int id)
+  {
+    if(!_companiesServices.CompanyExists(id))
+    {
+      var response = new ErrorResponse{ Message = "Company not found." };
+      return NotFound(response);
+    }
+
+    var model = await _companiesServices.Delete(id);
+    return model;
+  }
 }

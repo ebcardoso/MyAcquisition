@@ -34,4 +34,21 @@ public class CompaniesRepository : ICompaniesRepository
     await _context.SaveChangesAsync();
     return model;
   }
+
+  public async Task<Company> Delete(int id)
+  {
+    var model = await GetByID(id);
+    if (model != null)
+    {
+      _context.Companies.Remove(model);
+      await _context.SaveChangesAsync();
+      return model;
+    }
+    return null;
+  }
+
+  public bool CompanyExists(int id)
+  {
+    return _context.Companies.Any(e => e.Id == id);
+  }
 }

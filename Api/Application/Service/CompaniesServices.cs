@@ -38,6 +38,13 @@ public class CompaniesServices : ICompaniesServices
     return _mapper.Map<CompanyDTO>(modelCreated);
   }
 
+  public async Task<CompanyDTO> Update(CompanyDTO modelDTO)
+  {
+    var model = _mapper.Map<Company>(modelDTO);
+    var modelChanged = await _companiesRepository.Update(model);
+    return _mapper.Map<CompanyDTO>(modelChanged);
+  }
+
   public async Task<CompanyDTO> Delete(int id)
   {
     var modelDeleted = await _companiesRepository.Delete(id);

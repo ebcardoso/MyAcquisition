@@ -28,6 +28,13 @@ public class CompaniesRepository : ICompaniesRepository
     return model;
   }
 
+  public async Task<Company> Update(Company model)
+  {
+    _context.Entry(model).State = EntityState.Modified;
+    await _context.SaveChangesAsync();
+    return model;
+  }
+
   public async Task<Company> Create(Company model)
   {
     _context.Companies.Add(model);

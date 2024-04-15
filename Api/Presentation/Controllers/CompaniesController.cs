@@ -51,6 +51,25 @@ public class CompaniesController : ControllerBase
     return model;
   }
 
+  [HttpPut]
+  public async Task<ActionResult<CompanyDTO>> UpdateCompany(CompanyDTO modelDTO)
+  {
+    if(modelDTO.Id == 0)
+    {
+      var response = new ErrorResponse{ Message = "Id is necessary to update a company" };
+      return BadRequest(response);
+    }
+
+    if(!_companiesServices.CompanyExists(modelDTO.Id))
+    {
+      var response = new ErrorResponse{ Message = "Company not found"};
+      return NotFound(response);
+    }
+
+    var model = await _companiesServices.Update(modelDTO);
+    return model;
+  }
+
   [HttpDelete("{id}")]
   public async Task<ActionResult<CompanyDTO>> DeleteCompany(int id)
   {

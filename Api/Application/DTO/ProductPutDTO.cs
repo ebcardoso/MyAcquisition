@@ -6,7 +6,7 @@ namespace MyAcquisition.Api.Application.DTO;
 public class ProductPutDTO
 {
   [Required(ErrorMessage = "Id is required")]
-  [Range(1, int.MaxValue, ErrorMessage = "The value of Id is invalid")]
+  [Range(1, int.MaxValue, ErrorMessage = "The value for Id is invalid")]
   public int Id { get; set; }
 
   [Required(ErrorMessage = "Name is required")]

@@ -18,7 +18,9 @@ public class ProductsRepository : IProductsRepository
 
   public async Task<PagedList<Product>> GetAllAsync(int pageNumber, int pageSize)
   {
-    var query = _context.Products.Include(x => x.Brand).AsQueryable();
+    var query = _context.Products.Include(x => x.Brand)
+                                 .Include(x => x.Company)
+                                 .AsQueryable();
     return await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
   }
 
@@ -26,6 +28,7 @@ public class ProductsRepository : IProductsRepository
   {
     var model = await _context.Products.Where(x => x.Id == id)
                                        .Include(x => x.Brand)
+                                       .Include(x => x.Company)
                                        .FirstOrDefaultAsync();
     _context.Entry(model).State = EntityState.Detached;
     return model;
@@ -35,7 +38,7 @@ public class ProductsRepository : IProductsRepository
   {
     _context.Products.Add(model);
     await _context.SaveChangesAsync();
-    return model;
+    return await GetByID(model.Id);
   }
 
   public async Task<Product> Update(Product model)

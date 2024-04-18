@@ -44,6 +44,7 @@ internal class Program
     // Repositories
     builder.Services.AddScoped<IBrandsRepository, BrandsRepository>();
     builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
+    builder.Services.AddScoped<ICompanyUsersRepository, CompanyUsersRepository>();
     builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
     builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
@@ -51,6 +52,7 @@ internal class Program
     builder.Services.AddScoped<IAuthServices, AuthServices>();
     builder.Services.AddScoped<IBrandsServices, BrandsServices>();
     builder.Services.AddScoped<ICompaniesServices, CompaniesServices>();
+    builder.Services.AddScoped<ICompanyUsersServices, CompanyUsersServices>();
     builder.Services.AddScoped<IProductsServices, ProductsServices>();
     builder.Services.AddScoped<IUsersServices, UsersServices>();
 

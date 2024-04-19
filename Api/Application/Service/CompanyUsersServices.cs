@@ -23,4 +23,15 @@ public class CompanyUsersServices : ICompanyUsersServices
     var modelCreated = await _companyUsersRepository.Create(model);
     return _mapper.Map<CompanyUserDTO>(modelCreated);
   }
+
+  public async Task<CompanyUserDTO> Delete(int id)
+  {
+    var modelDeleted = await _companyUsersRepository.Delete(id);
+    return _mapper.Map<CompanyUserDTO>(modelDeleted);
+  }
+
+  public bool CompanyUserExists(int id)
+  {
+    return _companyUsersRepository.CompanyUserExists(id);
+  }
 }

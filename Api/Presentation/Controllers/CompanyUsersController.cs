@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging.Abstractions;
 using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Application.ServiceInterfaces;
 using MyAcquisition.Api.Presentation.Responses.Auth;
@@ -48,6 +47,19 @@ public class CompanyUsersController : ControllerBase
     };
 
     var model = await _companyUsersServices.Create(modelInsert);
+    return model;
+  }
+
+  [HttpDelete("{id}")]
+  public async Task<ActionResult<CompanyUserDTO>> DeleteCompanyUser(int id)
+  {
+    if (!_companyUsersServices.CompanyUserExists(id))
+    {
+      var response = new ErrorResponse{ Message = "Relashionship betweet Company-User not found" };
+      return NotFound(response);
+    }
+
+    var model = await _companyUsersServices.Delete(id);
     return model;
   }
 }

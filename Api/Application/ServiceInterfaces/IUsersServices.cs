@@ -7,6 +7,7 @@ public interface IUsersServices
 {
   Task<PagedList<UserGetDTO>> GetAllAsync(int pageNumber, int pageSize);
   Task<UserGetDTO> GetByID(int id);
+  Task<UserDTO> GetByEmail(string email);
   Task<UserDTO> Create(UserDTO model);
   Task<UserDTO> Update(UserDTO modelDTO);
   Task<UserDTO> Delete(int id);

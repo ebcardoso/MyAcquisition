@@ -22,5 +22,5 @@ public class CompanyUserDTO
   public CompanyDTO CompanyDTO { get; set; }
 
   [JsonPropertyName("user")]
-  public UserDTO UserDTO { get; set; }
+  public UserGetDTO UserGetDTO { get; set; }
 }

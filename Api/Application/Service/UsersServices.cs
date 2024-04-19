@@ -33,6 +33,12 @@ public class UsersServices : IUsersServices
     return _mapper.Map<UserGetDTO>(model);
   }
 
+  public async Task<UserDTO> GetByEmail(string email)
+  {
+    var model = await _usersRepository.GetByEmail(email);
+    return _mapper.Map<UserDTO>(model);
+  }
+
   public async Task<UserDTO> Create(UserDTO modelDTO)
   {
     var model = _mapper.Map<User>(modelDTO);

@@ -5,4 +5,5 @@ namespace MyAcquisition.Api.Domain.RepositoryInterfaces;
 public interface IAcquisitionsRepository
 {
   Task<Acquisition> GetByID(int id);
+  Task<Acquisition> Create(Acquisition model);
 }

@@ -28,4 +28,11 @@ public class AcquisitionsController : ControllerBase
     }
     return modelDTO;
   }
+
+  [HttpPost]
+  public async Task<ActionResult<AcquisitionDTO>> CreateAcquisition(AcquisitionPostDTO modelDTO)
+  {
+    var model = await _acquisitionsServices.Create(modelDTO);
+    return CreatedAtAction(nameof(GetAcquisition), new { id = model.Id }, model);
+  }
 }

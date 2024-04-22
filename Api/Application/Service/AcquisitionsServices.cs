@@ -22,4 +22,11 @@ public class AcquisitionsServices : IAcquisitionsServices
     var model = await _acquisitionsRepository.GetByID(id);
     return _mapper.Map<AcquisitionDTO>(model);
   }
+
+  public async Task<AcquisitionDTO> Create(AcquisitionPostDTO modelDTO)
+  {
+    var model = _mapper.Map<Acquisition>(modelDTO);
+    var modelCreated = await _acquisitionsRepository.Create(model);
+    return _mapper.Map<AcquisitionDTO>(modelCreated);
+  }
 }

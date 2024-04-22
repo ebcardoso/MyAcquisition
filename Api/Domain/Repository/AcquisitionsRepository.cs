@@ -22,4 +22,11 @@ public class AcquisitionsRepository : IAcquisitionsRepository
     _context.Entry(model).State = EntityState.Detached;
     return model;
   }
+
+  public async Task<Acquisition> Create(Acquisition model)
+  {
+    _context.Acquisitions.Add(model);
+    await _context.SaveChangesAsync();
+    return await GetByID(model.Id);
+  }
 }

@@ -17,5 +17,15 @@ public class AcquisitionsController : ControllerBase
     _acquisitionsServices = acquisitionsServices;
   }
 
-  
+  [HttpGet("{id}")]
+  public async Task<ActionResult<AcquisitionDTO>> GetAcquisition(int id)
+  {
+    var modelDTO = await _acquisitionsServices.GetByID(id);
+    if (modelDTO == null)
+    {
+      var response = new ErrorResponse{ Message = "Acquisition not found." };
+      return NotFound(response);
+    }
+    return modelDTO;
+  }
 }

@@ -16,4 +16,10 @@ public class AcquisitionsServices : IAcquisitionsServices
     _acquisitionsRepository = acquisitionsRepository;
     _mapper = mapper;
   }
+
+  public async Task<AcquisitionDTO> GetByID(int id)
+  {
+    var model = await _acquisitionsRepository.GetByID(id);
+    return _mapper.Map<AcquisitionDTO>(model);
+  }
 }

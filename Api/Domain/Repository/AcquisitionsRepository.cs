@@ -13,4 +13,13 @@ public class AcquisitionsRepository : IAcquisitionsRepository
   {
     _context = context;
   }
+
+  public async Task<Acquisition> GetByID(int id)
+  {
+    var model = await _context.Acquisitions.Where(x => x.Id == id)
+                                           .Include(x => x.Company)
+                                           .FirstOrDefaultAsync();
+    _context.Entry(model).State = EntityState.Detached;
+    return model;
+  }
 }

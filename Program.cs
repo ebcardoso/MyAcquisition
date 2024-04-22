@@ -42,6 +42,7 @@ internal class Program
     builder.Services.AddControllers();
 
     // Repositories
+    builder.Services.AddScoped<IAcquisitionsRepository, AcquisitionsRepository>();
     builder.Services.AddScoped<IBrandsRepository, BrandsRepository>();
     builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
     builder.Services.AddScoped<ICompanyUsersRepository, CompanyUsersRepository>();
@@ -49,6 +50,7 @@ internal class Program
     builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
     // Services
+    builder.Services.AddScoped<IAcquisitionsServices, AcquisitionsServices>();
     builder.Services.AddScoped<IAuthServices, AuthServices>();
     builder.Services.AddScoped<IBrandsServices, BrandsServices>();
     builder.Services.AddScoped<ICompaniesServices, CompaniesServices>();

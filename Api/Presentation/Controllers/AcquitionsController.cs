@@ -1,0 +1,21 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MyAcquisition.Api.Application.DTO;
+using MyAcquisition.Api.Application.ServiceInterfaces;
+using MyAcquisition.Api.Presentation.Responses.Auth;
+
+namespace MyAcquisition.Api.Presentation.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+[Authorize]
+public class AcquisitionsController : ControllerBase
+{
+  public readonly IAcquisitionsServices _acquisitionsServices;
+
+  public AcquisitionsController(IAcquisitionsServices acquisitionsServices) {
+    _acquisitionsServices = acquisitionsServices;
+  }
+
+  
+}

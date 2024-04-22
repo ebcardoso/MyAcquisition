@@ -8,6 +8,9 @@ public class DomainToDTOMapping : Profile
 {
   public DomainToDTOMapping()
   {
+    CreateMap<AcquisitionDTO, Acquisition>().ReverseMap()
+      .ForMember(dest => dest.CompanyDTO, opt => opt.MapFrom(x => x.Company));
+    CreateMap<Acquisition, AcquisitionPostDTO>().ReverseMap();
     CreateMap<Brand, BrandDTO>().ReverseMap();
     CreateMap<Company, CompanyDTO>().ReverseMap();
     CreateMap<CompanyUserDTO, CompanyUser>().ReverseMap()

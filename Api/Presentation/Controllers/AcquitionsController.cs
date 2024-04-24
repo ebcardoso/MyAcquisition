@@ -36,6 +36,27 @@ public class AcquisitionsController : ControllerBase
     return CreatedAtAction(nameof(GetAcquisition), new { id = model.Id }, model);
   }
 
+  [HttpPut]
+  public async Task<ActionResult<AcquisitionDTO>> UpdateAcquisition(AcquisitionPutDTO modelPutDTO)
+  {
+    var modelDTO = await _acquisitionsServices.GetByID(modelPutDTO.Id);
+    if(modelDTO == null)
+    {
+      var response = new ErrorResponse{ Message = "Acquisition not found." };
+      return NotFound(response);
+    }
+
+    modelDTO.Deadline = DateOnly.Parse(modelPutDTO.Deadline);
+
+    var model = await _acquisitionsServices.Update(modelDTO);
+    if (model == null)
+    {
+      var response = new ErrorResponse{ Message = "Error to update Acquisition." };
+      return BadRequest(response);
+    }
+    return model;
+  }
+
   [HttpDelete("{id}")]
   public async Task<ActionResult<AcquisitionDTO>> DeleteBrand(int id)
   {

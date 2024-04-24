@@ -30,6 +30,13 @@ public class AcquisitionsRepository : IAcquisitionsRepository
     return await GetByID(model.Id);
   }
 
+  public async Task<Acquisition> Update(Acquisition model)
+  {
+    _context.Entry(model).State = EntityState.Modified;
+    await _context.SaveChangesAsync();
+    return model;
+  }
+
   public async Task<Acquisition> Delete(int id)
   {
     var model = await GetByID(id);

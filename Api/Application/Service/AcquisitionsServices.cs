@@ -30,6 +30,13 @@ public class AcquisitionsServices : IAcquisitionsServices
     return _mapper.Map<AcquisitionDTO>(modelCreated);
   }
 
+  public async Task<AcquisitionDTO> Update(AcquisitionDTO modelDTO)
+  {
+    var model = _mapper.Map<Acquisition>(modelDTO);
+    var modelChanged = await _acquisitionsRepository.Update(model);
+    return _mapper.Map<AcquisitionDTO>(modelChanged);
+  }
+
   public async Task<AcquisitionDTO> Delete(int id)
   {
     var modelDeleted = await _acquisitionsRepository.Delete(id);

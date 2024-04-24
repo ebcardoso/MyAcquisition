@@ -35,4 +35,17 @@ public class AcquisitionsController : ControllerBase
     var model = await _acquisitionsServices.Create(modelDTO);
     return CreatedAtAction(nameof(GetAcquisition), new { id = model.Id }, model);
   }
+
+  [HttpDelete("{id}")]
+  public async Task<ActionResult<AcquisitionDTO>> DeleteBrand(int id)
+  {
+    if(!_acquisitionsServices.AcquisitionExists(id))
+    {
+      var response = new ErrorResponse{ Message = "Acquisition not found." };
+      return NotFound(response);
+    }
+
+    var model = await _acquisitionsServices.Delete(id);
+    return model;
+  }
 }

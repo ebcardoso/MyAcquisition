@@ -29,4 +29,15 @@ public class AcquisitionsServices : IAcquisitionsServices
     var modelCreated = await _acquisitionsRepository.Create(model);
     return _mapper.Map<AcquisitionDTO>(modelCreated);
   }
+
+  public async Task<AcquisitionDTO> Delete(int id)
+  {
+    var modelDeleted = await _acquisitionsRepository.Delete(id);
+    return _mapper.Map<AcquisitionDTO>(modelDeleted);
+  }
+
+  public bool AcquisitionExists(int id)
+  {
+    return _acquisitionsRepository.AcquisitionExists(id);
+  }
 }

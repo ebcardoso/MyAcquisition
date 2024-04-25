@@ -2,6 +2,7 @@ using AutoMapper;
 using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Application.ServiceInterfaces;
 using MyAcquisition.Api.Domain.Models;
+using MyAcquisition.Api.Domain.Pagination;
 using MyAcquisition.Api.Domain.RepositoryInterfaces;
 
 namespace MyAcquisition.Api.Application.Service;
@@ -15,6 +16,13 @@ public class AcquisitionsServices : IAcquisitionsServices
   {
     _acquisitionsRepository = acquisitionsRepository;
     _mapper = mapper;
+  }
+
+  public async Task<PagedList<AcquisitionDTO>> GetAllAsync(int pageNumber, int pageSize)
+  {
+    var models = await _acquisitionsRepository.GetAllAsync(pageNumber, pageSize);
+    var modelsDTO =  _mapper.Map<IEnumerable<AcquisitionDTO>>(models);
+    return new PagedList<AcquisitionDTO>(modelsDTO, pageNumber, pageSize, models.TotalCount);
   }
 
   public async Task<AcquisitionDTO> GetByID(int id)

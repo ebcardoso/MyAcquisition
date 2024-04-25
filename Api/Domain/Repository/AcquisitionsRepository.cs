@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using MyAcquisition.Api.Domain.Models;
+using MyAcquisition.Api.Domain.Pagination;
 using MyAcquisition.Api.Domain.RepositoryInterfaces;
 using MyAcquisition.Api.Infrastructure.Context;
+using MyAcquisition.Api.Infrastructure.Helpers;
 
 namespace MyAcquisition.Api.Domain.Repositories;
 
@@ -12,6 +14,13 @@ public class AcquisitionsRepository : IAcquisitionsRepository
   public AcquisitionsRepository(ApiDbContext context)
   {
     _context = context;
+  }
+
+  public async Task<PagedList<Acquisition>> GetAllAsync(int pageNumber, int pageSize)
+  {
+    var query = _context.Acquisitions.Include(x => x.Company)
+                                     .AsQueryable();
+    return await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
   }
 
   public async Task<Acquisition> GetByID(int id)

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyAcquisition.Api.Application.DTO;
 using MyAcquisition.Api.Application.ServiceInterfaces;
+using MyAcquisition.Api.Infrastructure.Extensions;
+using MyAcquisition.Api.Presentation.Models;
 using MyAcquisition.Api.Presentation.Responses.Auth;
 
 namespace MyAcquisition.Api.Presentation.Controllers;
@@ -15,6 +17,17 @@ public class AcquisitionsController : ControllerBase
 
   public AcquisitionsController(IAcquisitionsServices acquisitionsServices) {
     _acquisitionsServices = acquisitionsServices;
+  }
+
+  [HttpGet]
+  public async Task<IEnumerable<AcquisitionDTO>> GetAcquisitions([FromQuery]PaginationParams paginationParams)
+  {
+    var modelsDTO = await _acquisitionsServices.GetAllAsync(paginationParams.PageNumber, paginationParams.PageSize);
+
+    Response.AddPaginationHeader(new PaginationHeader(modelsDTO.CurrentPage,
+      modelsDTO.PageSize, modelsDTO.TotalCount, modelsDTO.TotalPages));
+
+    return modelsDTO;
   }
 
   [HttpGet("{id}")]

@@ -17,6 +17,12 @@ public class AcquisitionProductsServices : IAcquisitionProductsServices
     _mapper = mapper;
   }
 
+  public async Task<AcquisitionProductDTO> GetByID(int id)
+  {
+    var model = await _apRepository.GetByID(id);
+    return _mapper.Map<AcquisitionProductDTO>(model);
+  }
+
   public async Task<AcquisitionProductDTO> Create(AcquisitionProductPostDTO modelDTO)
   {
     var model = _mapper.Map<AcquisitionProduct>(modelDTO);

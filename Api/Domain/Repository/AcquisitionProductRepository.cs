@@ -15,6 +15,15 @@ public class AcquisitionProductsRepository : IAcquisitionProductsRepository
     _context = context;
   }
 
+  public async Task<AcquisitionProduct> GetByID(int id)
+  {
+    var model = await _context.AcquisitionProducts.Where(x => x.Id == id)
+                                                  .Include(x => x.Acquisition)
+                                                  .Include(x => x.Product)
+                                                  .FirstOrDefaultAsync();
+    return model;
+  }
+
   public async Task<AcquisitionProduct> Create(AcquisitionProduct model)
   {
     _context.AcquisitionProducts.Add(model);

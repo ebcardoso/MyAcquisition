@@ -14,4 +14,11 @@ public class AcquisitionProductsRepository : IAcquisitionProductsRepository
   {
     _context = context;
   }
+
+  public async Task<AcquisitionProduct> Create(AcquisitionProduct model)
+  {
+    _context.AcquisitionProducts.Add(model);
+    await _context.SaveChangesAsync();
+    return await GetByID(model.Id);
+  }
 }

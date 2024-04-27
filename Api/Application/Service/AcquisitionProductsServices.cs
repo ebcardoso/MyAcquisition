@@ -16,4 +16,11 @@ public class AcquisitionProductsServices : IAcquisitionProductsServices
     _apRepository = apRepository;
     _mapper = mapper;
   }
+
+  public async Task<AcquisitionProductDTO> Create(AcquisitionProductPostDTO modelDTO)
+  {
+    var model = _mapper.Map<AcquisitionProduct>(modelDTO);
+    var modelCreated = await _apRepository.Create(model);
+    return _mapper.Map<AcquisitionProductDTO>(modelCreated);
+  }
 }

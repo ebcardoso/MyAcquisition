@@ -4,4 +4,5 @@ namespace MyAcquisition.Api.Domain.RepositoryInterfaces;
 
 public interface IAcquisitionProductsRepository
 {
+  Task<AcquisitionProduct> Create(AcquisitionProduct model);
 }

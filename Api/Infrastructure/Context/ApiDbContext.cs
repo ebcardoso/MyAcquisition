@@ -13,6 +13,7 @@ public class ApiDbContext: DbContext
   }
 
   public DbSet<Acquisition> Acquisitions { get; set; }
+  public DbSet<AcquisitionProduct> AcquisitionProducts { get; set; }
   public DbSet<Brand> Brands { get; set; }
   public DbSet<Company> Companies { get; set; }
   public DbSet<CompanyUser> CompanyUsers { get; set; }

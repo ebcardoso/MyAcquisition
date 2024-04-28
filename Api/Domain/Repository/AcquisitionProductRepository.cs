@@ -30,4 +30,21 @@ public class AcquisitionProductsRepository : IAcquisitionProductsRepository
     await _context.SaveChangesAsync();
     return await GetByID(model.Id);
   }
+
+  public async Task<AcquisitionProduct> Delete(int id)
+  {
+    var model = await GetByID(id);
+    if (model != null)
+    {
+      _context.AcquisitionProducts.Remove(model);
+      await _context.SaveChangesAsync();
+      return model;
+    }
+    return null;
+  }
+
+  public bool AcquisitionProductExists(int id)
+  {
+    return _context.AcquisitionProducts.Any(e => e.Id == id);
+  }
 }

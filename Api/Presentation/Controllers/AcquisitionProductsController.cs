@@ -36,4 +36,17 @@ public class AcquisitionProductsController : ControllerBase
     var model = await _apServices.Create(modelDTO);
     return CreatedAtAction(nameof(GetAP), new { id = model.Id }, model);
   }
+
+  [HttpDelete("{id}")]
+  public async Task<ActionResult<AcquisitionProductDTO>> DeleteAP(int id)
+  {
+    if(!_apServices.AcquisitionProductExists(id))
+    {
+      var response = new ErrorResponse{ Message = "Relashionship betweet Acquisition-Product not found." };
+      return NotFound(response);
+    }
+
+    var model = await _apServices.Delete(id);
+    return model;
+  }
 }

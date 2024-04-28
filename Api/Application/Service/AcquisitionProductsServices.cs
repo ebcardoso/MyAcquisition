@@ -29,4 +29,15 @@ public class AcquisitionProductsServices : IAcquisitionProductsServices
     var modelCreated = await _apRepository.Create(model);
     return _mapper.Map<AcquisitionProductDTO>(modelCreated);
   }
+
+  public async Task<AcquisitionProductDTO> Delete(int id)
+  {
+    var modelDeleted = await _apRepository.Delete(id);
+    return _mapper.Map<AcquisitionProductDTO>(modelDeleted);
+  }
+
+  public bool AcquisitionProductExists(int id)
+  {
+    return _apRepository.AcquisitionProductExists(id);
+  }
 }

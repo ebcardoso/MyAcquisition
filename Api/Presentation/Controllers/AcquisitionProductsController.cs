@@ -37,6 +37,26 @@ public class AcquisitionProductsController : ControllerBase
     return CreatedAtAction(nameof(GetAP), new { id = model.Id }, model);
   }
 
+  [HttpPut]
+  public async Task<ActionResult<AcquisitionProductDTO>> UpdateAP(AcquisitionProductPutDTO modelPutDTO)
+  {
+    var modelDTO = await _apServices.GetByID(modelPutDTO.Id);
+    if(modelDTO == null)
+    {
+      var response = new ErrorResponse{ Message = "Acquisition-Product not found." };
+      return NotFound(response);
+    }
+
+    modelDTO.Amount = modelPutDTO.Amount;
+    var model = await _apServices.Update(modelDTO);
+    if (model == null)
+    {
+      var response = new ErrorResponse{ Message = "Error to update Acquisition-Product." };
+      return BadRequest(response);
+    }
+    return model;
+  }
+
   [HttpDelete("{id}")]
   public async Task<ActionResult<AcquisitionProductDTO>> DeleteAP(int id)
   {

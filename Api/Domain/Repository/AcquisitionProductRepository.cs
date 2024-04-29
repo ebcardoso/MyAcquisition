@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using MyAcquisition.Api.Domain.Models;
-using MyAcquisition.Api.Domain.Pagination;
 using MyAcquisition.Api.Domain.RepositoryInterfaces;
 using MyAcquisition.Api.Infrastructure.Context;
 
@@ -21,6 +20,7 @@ public class AcquisitionProductsRepository : IAcquisitionProductsRepository
                                                   .Include(x => x.Acquisition)
                                                   .Include(x => x.Product)
                                                   .FirstOrDefaultAsync();
+    _context.Entry(model).State = EntityState.Detached;
     return model;
   }
 
@@ -29,6 +29,13 @@ public class AcquisitionProductsRepository : IAcquisitionProductsRepository
     _context.AcquisitionProducts.Add(model);
     await _context.SaveChangesAsync();
     return await GetByID(model.Id);
+  }
+
+  public async Task<AcquisitionProduct> Update(AcquisitionProduct model)
+  {
+    _context.Entry(model).State = EntityState.Modified;
+    await _context.SaveChangesAsync();
+    return model;
   }
 
   public async Task<AcquisitionProduct> Delete(int id)

@@ -6,6 +6,7 @@ public interface IAcquisitionProductsRepository
 {
   Task<AcquisitionProduct> GetByID(int id);
   Task<AcquisitionProduct> Create(AcquisitionProduct model);
+  Task<AcquisitionProduct> Update(AcquisitionProduct model);
   Task<AcquisitionProduct> Delete(int id);
   bool AcquisitionProductExists(int id);
 }

@@ -44,6 +44,7 @@ internal class Program
     // Repositories
     builder.Services.AddScoped<IAcquisitionsRepository, AcquisitionsRepository>();
     builder.Services.AddScoped<IAcquisitionProductsRepository, AcquisitionProductsRepository>();
+    builder.Services.AddScoped<IAcquisitionProposalsRepository, AcquisitionProposalsRepository>();
     builder.Services.AddScoped<IBrandsRepository, BrandsRepository>();
     builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
     builder.Services.AddScoped<ICompanyUsersRepository, CompanyUsersRepository>();

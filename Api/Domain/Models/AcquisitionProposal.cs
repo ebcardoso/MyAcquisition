@@ -22,27 +22,27 @@ public class AcquisitionProposal : BaseModel
   public User User { get; private set; }
 
   // Constructors
-  public AcquisitionProposal(int id, int apId, int userId, decimal price)
+  public AcquisitionProposal(int id, int acquisitionProductId, int userId, decimal price)
   {
     ModelValidationException.When(id < 0, "Field Id should to be greater than 0");
     Id = id;
 
-    ValidateModel(apId, userId, price);
+    ValidateModel(acquisitionProductId, userId, price);
   }
 
-  public AcquisitionProposal(int apId, int userId, decimal price)
+  public AcquisitionProposal(int acquisitionProductId, int userId, decimal price)
   {
-    ValidateModel(apId, userId, price);
+    ValidateModel(acquisitionProductId, userId, price);
   }
 
   // Validator
-  private void ValidateModel(int apId, int userId, decimal price)
+  private void ValidateModel(int acquisitionProductId, int userId, decimal price)
   {
-    ModelValidationException.When(apId < 0, "Field AcquisitionProductId should to be greater than 0");
+    ModelValidationException.When(acquisitionProductId < 0, "Field AcquisitionProductId should to be greater than 0");
     ModelValidationException.When(userId < 0, "Field UserId should to be greater than 0");
     ModelValidationException.When(price < 0, "Field Price should to be greater than 0");
 
-    AcquisitionProductId = apId;
+    AcquisitionProductId = acquisitionProductId;
     UserId = userId;
     Price = price;
   }

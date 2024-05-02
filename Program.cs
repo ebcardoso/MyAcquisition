@@ -54,6 +54,7 @@ internal class Program
     // Services
     builder.Services.AddScoped<IAcquisitionsServices, AcquisitionsServices>();
     builder.Services.AddScoped<IAcquisitionProductsServices, AcquisitionProductsServices>();
+    builder.Services.AddScoped<IAcquisitionProposalsServices, AcquisitionProposalsServices>();
     builder.Services.AddScoped<IAuthServices, AuthServices>();
     builder.Services.AddScoped<IBrandsServices, BrandsServices>();
     builder.Services.AddScoped<ICompaniesServices, CompaniesServices>();

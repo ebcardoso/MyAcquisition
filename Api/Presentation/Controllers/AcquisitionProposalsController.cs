@@ -18,6 +18,18 @@ public class AcquisitionProposalsController : ControllerBase
     _apServices = apServices;
   }
 
+  [HttpGet("{id}")]
+  public async Task<ActionResult<AcquisitionProposalDTO>> GetAP(int id)
+  {
+    var modelDTO = await _apServices.GetByID(id);
+    if (modelDTO == null)
+    {
+      var response = new ErrorResponse{ Message = "Acquisition-Proposal not found." };
+      return NotFound(response);
+    }
+    return modelDTO;
+  }
+
   [HttpPost]
   public async Task<ActionResult<AcquisitionProposalDTO>> CreateProduct(AcquisitionProposalPostDTO modelDTO)
   {

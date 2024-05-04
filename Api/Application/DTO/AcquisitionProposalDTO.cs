@@ -22,6 +22,6 @@ public class AcquisitionProposalDTO
   public decimal Price { get; set; }
 
   public AcquisitionProductDTO AcquisitionProductDTO { get; set; }
-  
+
   public UserGetDTO UserGetDTO { get; set; }
 }

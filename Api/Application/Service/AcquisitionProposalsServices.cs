@@ -29,6 +29,14 @@ public class AcquisitionProposalsServices : IAcquisitionProposalsServices
     var modelCreated = await _apRepository.Create(model);
     return _mapper.Map<AcquisitionProposalDTO>(modelCreated);
   }
+
+  public async Task<AcquisitionProposalDTO> Update(AcquisitionProposalDTO modelDTO)
+  {
+    var model = _mapper.Map<AcquisitionProposal>(modelDTO);
+    var modelChanged = await _apRepository.Update(model);
+    return _mapper.Map<AcquisitionProposalDTO>(modelChanged);
+  }
+
   public async Task<AcquisitionProposalDTO> Delete(int id)
   {
     var modelDeleted = await _apRepository.Delete(id);

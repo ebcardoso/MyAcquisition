@@ -31,6 +31,13 @@ public class AcquisitionProposalsRepository : IAcquisitionProposalsRepository
     return await GetByID(model.Id);
   }
 
+  public async Task<AcquisitionProposal> Update(AcquisitionProposal model)
+  {
+    _context.Entry(model).State = EntityState.Modified;
+    await _context.SaveChangesAsync();
+    return model;
+  }
+
   public async Task<AcquisitionProposal> Delete(int id)
   {
     var model = await GetByID(id);

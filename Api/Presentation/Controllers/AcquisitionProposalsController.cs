@@ -37,6 +37,26 @@ public class AcquisitionProposalsController : ControllerBase
     return CreatedAtAction(nameof(GetAP), new { id = model.Id }, model);
   }
 
+  [HttpPut]
+  public async Task<ActionResult<AcquisitionProposalDTO>> UpdateAP(AcquisitionProposalPutDTO modelPutDTO)
+  {
+    var modelDTO = await _apServices.GetByID(modelPutDTO.Id);
+    if(modelDTO == null)
+    {
+      var response = new ErrorResponse{ Message = "Acquisition-Proposal not found." };
+      return NotFound(response);
+    }
+
+    modelDTO.Price = modelPutDTO.Price;
+    var model = await _apServices.Update(modelDTO);
+    if (model == null)
+    {
+      var response = new ErrorResponse{ Message = "Error to update Acquisition-Proposal." };
+      return BadRequest(response);
+    }
+    return model;
+  }
+
   [HttpDelete("{id}")]
   public async Task<ActionResult<AcquisitionProposalDTO>> DeleteAP(int id)
   {

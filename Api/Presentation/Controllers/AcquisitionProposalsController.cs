@@ -31,9 +31,22 @@ public class AcquisitionProposalsController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<ActionResult<AcquisitionProposalDTO>> CreateProduct(AcquisitionProposalPostDTO modelDTO)
+  public async Task<ActionResult<AcquisitionProposalDTO>> CreateAP(AcquisitionProposalPostDTO modelDTO)
   {
     var model = await _apServices.Create(modelDTO);
     return CreatedAtAction(nameof(GetAP), new { id = model.Id }, model);
+  }
+
+  [HttpDelete("{id}")]
+  public async Task<ActionResult<AcquisitionProposalDTO>> DeleteAP(int id)
+  {
+    if(!_apServices.AcquisitionProposalExists(id))
+    {
+      var response = new ErrorResponse{ Message = "Acquisition-Proposal not found." };
+      return NotFound(response);
+    }
+
+    var model = await _apServices.Delete(id);
+    return model;
   }
 }

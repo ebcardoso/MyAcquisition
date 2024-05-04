@@ -30,4 +30,21 @@ public class AcquisitionProposalsRepository : IAcquisitionProposalsRepository
     await _context.SaveChangesAsync();
     return await GetByID(model.Id);
   }
+
+  public async Task<AcquisitionProposal> Delete(int id)
+  {
+    var model = await GetByID(id);
+    if (model != null)
+    {
+      _context.AcquisitionProposals.Remove(model);
+      await _context.SaveChangesAsync();
+      return model;
+    }
+    return null;
+  }
+
+  public bool AcquisitionProposalExists(int id)
+  {
+    return _context.AcquisitionProposals.Any(e => e.Id == id);
+  }
 }

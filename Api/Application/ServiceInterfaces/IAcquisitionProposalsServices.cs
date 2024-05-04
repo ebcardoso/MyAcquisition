@@ -6,4 +6,6 @@ public interface IAcquisitionProposalsServices
 {
   Task<AcquisitionProposalDTO> GetByID(int id);
   Task<AcquisitionProposalDTO> Create(AcquisitionProposalPostDTO model);
+  Task<AcquisitionProposalDTO> Delete(int id);
+  bool AcquisitionProposalExists(int id);
 }

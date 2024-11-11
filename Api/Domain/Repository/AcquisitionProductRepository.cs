@@ -20,7 +20,10 @@ public class AcquisitionProductsRepository : IAcquisitionProductsRepository
                                                   .Include(x => x.Acquisition)
                                                   .Include(x => x.Product)
                                                   .FirstOrDefaultAsync();
-    _context.Entry(model).State = EntityState.Detached;
+    if (model != null)
+    {
+      _context.Entry(model).State = EntityState.Detached;
+    }
     return model;
   }
 

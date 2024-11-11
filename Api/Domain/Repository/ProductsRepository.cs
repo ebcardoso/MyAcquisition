@@ -30,7 +30,10 @@ public class ProductsRepository : IProductsRepository
                                        .Include(x => x.Brand)
                                        .Include(x => x.Company)
                                        .FirstOrDefaultAsync();
-    _context.Entry(model).State = EntityState.Detached;
+    if (model != null)
+    {
+      _context.Entry(model).State = EntityState.Detached;
+    }
     return model;
   }
 

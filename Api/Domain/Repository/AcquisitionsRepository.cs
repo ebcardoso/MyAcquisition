@@ -28,7 +28,10 @@ public class AcquisitionsRepository : IAcquisitionsRepository
     var model = await _context.Acquisitions.Where(x => x.Id == id)
                                            .Include(x => x.Company)
                                            .FirstOrDefaultAsync();
-    _context.Entry(model).State = EntityState.Detached;
+    if (model != null)
+    {
+      _context.Entry(model).State = EntityState.Detached;
+    }
     return model;
   }
 
